@@ -57,16 +57,45 @@ function cmap = crameri(ColormapName,varargin)
 % 
 % See also colormap and caxis.  
 
+%% License
+% Copyright (c) 2018, Chad Greene
+% All rights reserved.
+% 
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions are met:
+% 
+% * Redistributions of source code must retain the above copyright notice, this
+%   list of conditions and the following disclaimer.
+% 
+% * Redistributions in binary form must reproduce the above copyright notice,
+%   this list of conditions and the following disclaimer in the documentation
+%   and/or other materials provided with the distribution
+% 
+% * Neither the name of The University of Texas at Austin nor the names of its
+%   contributors may be used to endorse or promote products derived from this
+%   software without specific prior written permission.
+% 
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+% AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+% IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+% FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+% DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+% SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+% OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 %% Display colormap options: 
 
 if nargin==0
    figure('menubar','none','numbertitle','off','Name','crameri options:')
    
    if license('test','image_toolbox')
-      imshow(imread('crameri7.0.png')); 
+      imshow(imread('crameri8.0.png'));
    else
       axes('pos',[0 0 1 1])
-      image(imread('crameri7.0.png')); 
+      image(imread('crameri8.0.png'));
       axis image off
    end
    
@@ -94,7 +123,7 @@ if any(dash)
 end
 
 % Standardize all colormap names to lowercase: 
-ColormapName = lower(ColormapName); 
+% ColormapName = lower(ColormapName);
 
 % Oleron's too hard for me to remember, so I'm gonna use dem or topo. 
 if ismember(ColormapName,{'dem','topo'})
@@ -124,7 +153,7 @@ end
 %% Load RGB values and interpolate to NLevels: 
 
 try
-   S = load('CrameriColourMaps7.0.mat',ColormapName); 
+   S = load('CrameriColourMaps8.0.mat',ColormapName);
    cmap = S.(ColormapName); 
 catch
    error(['Unknown colormap name ''',ColormapName,'''. Try typing crameri with no inputs to check the options and try again.'])
@@ -155,19 +184,3 @@ if nargout==0
    colormap(gca,cmap) 
    clear cmap  
 end
-
-%% Code to collect Fabio's data into a single .mat file: 
-% Unzip the latest folder, navigate to that filepath, and run this.
-% Update the file list as needed. 
-%
-% clear all
-% f = {'acton','bam','bamO','bamako','batlow','batlowK','batlowW','berlin','bilbao','broc','brocO','buda','bukavu','cork',...
-%    'corkO','davos','devon','fes','grayC','hawaii','imola','lajolla','lapaz','lisbon',...
-%    'nuuk','oleron','oslo','roma','romaO','tofino','tokyo','turku','vanimo','vik','vikO'}; 
-% 
-% for k = 1:length(f)
-%    load([f{k},'/',f{k},'.mat'])
-% end
-% 
-% clear f k 
-% save('CrameriColourMaps7.0.mat')
